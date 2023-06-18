@@ -72,39 +72,45 @@ $role = $_SESSION['role'];
 
                             ?>
 
-                                <tr>
-                                    <td><?= $row['info_id'] ?></td>
-                                    <td><?= $row['voyage_number'] ?></td>
-                                    <td><?= $row['bill_of_lading_number'] ?></td>
-                                    <td><?= $row['date_of_issue'] ?></td>
-                                    <td><?= $row['port_of_discharge'] ?></td>
-                                    <td>
-                                        <span class="custom-badge status-green"><?= $row['number_of_containers'] ?></span>
-                                    </td>
-                                    <td>
-                                        <a href="view_bill?info_id=<?php echo $row['info_id'] ?>">
-                                            <i class="fas fa-eye text-primary mx-1"></i>
-                                        </a>
-                                        <a href="">
-                                            <a href="#" class="" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print mx-1"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="bill_with_sign_stamp?info_id=<?php echo $row['info_id'] ?>"><i class="fa fa-pencil m-r-5"></i> With
-                                                    Signature | Stamp </a>
-                                                <a class="dropdown-item" href="bill_without_sign?info_id=<?php echo $row['info_id'] ?>"><i class="fa fa-ban m-r-5"></i>
-                                                    Without Signature | Stamp</a>
-                                            </div>
-                                        </a>
-                                        <?php if ($role == 2) { ?>
-                                            <a href="edit_bill?info_id=<?php echo $row['info_id'] ?>">
-                                                <i class="fa-solid fa-pen-to-square mx-1"></i>
-                                            </a>
+                            <tr>
+                                <td><?= $row['info_id'] ?></td>
+                                <td><?= $row['voyage_number'] ?></td>
+                                <td><?= $row['bill_of_lading_number'] ?></td>
+                                <td><?= $row['date_of_issue'] ?></td>
+                                <td><?= $row['port_of_discharge'] ?></td>
+                                <td>
+                                    <span class="custom-badge status-green"><?= $row['number_of_containers'] ?></span>
+                                </td>
+                                <td>
+                                    <a href="view_bill?info_id=<?php echo $row['info_id'] ?>">
+                                        <i class="fas fa-eye text-primary mx-1"></i>
+                                    </a>
+                                    <a href="">
+                                        <a href="#" class="" data-toggle="dropdown" aria-expanded="false"><i
+                                                class="fa fa-print mx-1"></i></a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item"
+                                                href="bill_with_sign_stamp?info_id=<?php echo $row['info_id'] ?>"><i
+                                                    class="fa fa-pencil m-r-5"></i> With
+                                                Signature | Stamp </a>
+                                            <a class="dropdown-item"
+                                                href="bill_without_sign?info_id=<?php echo $row['info_id'] ?>"><i
+                                                    class="fa fa-ban m-r-5"></i>
+                                                Without Signature | Stamp</a>
+                                        </div>
+                                    </a>
+                                    <?php if ($role == 2) { ?>
+                                    <a href="edit_bill?info_id=<?php echo $row['info_id'] ?>">
+                                        <i class="fa-solid fa-pen-to-square mx-1"></i>
+                                    </a>
 
-                                            <a href="delete_bill?info_id=<?php echo $row['info_id'] ?>" onclick="return confirm('Are you sure you want to delete bill of lading')">
-                                                <i class="fas fa-trash text-danger mx-1"></i>
-                                            </a>
-                                        <?php } ?>
-                                    </td>
-                                </tr>
+                                    <a href="delete_bill?info_id=<?php echo $row['info_id'] ?>"
+                                        onclick="return confirm('Are you sure you want to delete bill of lading')">
+                                        <i class="fas fa-trash text-danger mx-1"></i>
+                                    </a>
+                                    <?php } ?>
+                                </td>
+                            </tr>
                             <?php } ?>
                         </tbody>
                     </table>
