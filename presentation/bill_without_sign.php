@@ -1,5 +1,6 @@
 <?php
 require '../vendor/fpdf/fpdf.php';
+require '../vendor/fpdf/rotate.php';
 require_once '../dataAccess/connections.php';
 
 $get_info_id = $_GET['info_id'];
@@ -314,30 +315,30 @@ $pdf->Cell(57.5, 6, $final_place_of_delivery, 0, 1, 'C', true);
  
 // Description Table 
 
-$pdf->SetY(169);
+$pdf->SetY(180);
 $pdf->SetX(0);
 $pdf->SetFillColor(200, 200, 200);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont('Arial', '', 7);
 $pdf->Cell(210, 6, "ADDITIONAL CLAUSES", 0, 1, 'C', true);
 
-$pdf->Rect(0, 175.1, 105, 61, 'D'); //For A4
+$pdf->Rect(0, 176, 105, 60, 'D'); //For A4
 
-$pdf->SetY(175.2);
+$pdf->SetY(181.2);
 $pdf->SetX(1);
 $pdf->SetFillColor(255, 255, 255);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont('Arial', '', 5.8);
 $pdf->Cell(105, 6, "1. We are Third Party Between Shipper (Suppliers) / Consignee / Container Shipping line Carrier  ", 0, 1, 'L', true);
 
-$pdf->SetY(179.2);
+$pdf->SetY(189.2);
 $pdf->SetX(1);
 $pdf->SetFillColor(255, 255, 255);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont('Arial', '', 5.8);
 $pdf->Cell(105, 6, "2. Cranes Costs For Receiver's account.", 0, 1, 'L', true);
 
-$pdf->SetY(183.2);
+$pdf->SetY(193.2);
 $pdf->SetX(1);
 $pdf->SetFillColor(255, 255, 255);
 $pdf->SetTextColor(0, 0, 0);
@@ -428,14 +429,183 @@ $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont('Arial', '', 5.8);
 $pdf->Cell(105, 6, "8 Free Out", 0, 1, 'L', true);
 
-$pdf->Rect(105, 175.1, 105, 61, 'D'); //For A4
-$pdf->Rect(0, 236, 210, 45, 'D'); //For A4
+// Right Side 
+$pdf->Rect(105, 185, 105, 61, 'D'); //For A4
 
-$pdf->Rect(105, 281, 105, 40, 'D'); //For A4
+$pdf->SetY(186.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, "9. THC at Destination Payable by Merchant as per NYL Line / Port Tariff", 0, 1, 'L', true);
+
+$pdf->SetY(190.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, "10. Reloading Empty Containers to Remain For Receiver's Account at any Port of Discharge in Egypt.", 0, 1, 'L', true);
+
+$pdf->SetY(194.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, "11. Off-loading of Containers Full from Truck and Reloading of Empty onto Truck at Any Port In Egypt to be at ", 0, 1, 'L', true);
+
+$pdf->SetY(198.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, "Receiver's Risk and Expenses.", 0, 1, 'L', true);
+
+$pdf->SetY(202.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, "12. On Top of the Free Out Expenses, Loading / Discharging Containers Full to / From Truck are at Receiver's ", 0, 1, 'L', true);
+
+$pdf->SetY(206.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, "Risks and Expenses.", 0, 1, 'L', true);
+
+$pdf->SetY(210.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, "13. Mis-Declaration of Cargo Weight Endangers Crew, Port Workers and Vessel's Safety.", 0, 1, 'L', true);
+
+$pdf->SetY(214.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, "14. Demurrage and Detention Shall be Calculated & Paid as per General Tariff Available", 0, 1, 'L', true);
+
+$pdf->SetY(218.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, "n the Web Site www.nylshipping.com ,Or in Any of NYL Agency. However if Special Free Time ", 0, 1, 'L', true);
+
+$pdf->SetY(222.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, "Conditions are Granted, Then Rates Applicable as per General Tariff Grid Shall Start from ", 0, 1, 'L', true);
+
+$pdf->SetY(226.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, "the Day Following the Last Free Day.", 0, 1, 'L', true);
+
+$pdf->SetY(230.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, "15. The Authorized Agent of Our Line Shipping Is HEPTAGON TRADE COMPANY LIMITED in Middle East", 0, 1, 'L', true);
+
+$pdf->SetY(234.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, " , Certificate No.: 72857661-000-04-23-1 , Website www.Heptagon-hk.com", 0, 1, 'L', true);
+
+$pdf->SetY(238.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, "The Authorized Third Party Agent As Notify Party In Egypt To Collect Sea Freight Charge Is", 0, 1, 'L', true);
+
+$pdf->SetY(239.2);
+$pdf->SetX(106);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(105, 6, "TATOO FRIGHT-COMPANY OF AHMED ABDEL RAZIK NASR ABDEL MAKSOUD AND HIS PARTNER.", 0, 1, 'L', true);
+
+$pdf->SetY(241.2);
+$pdf->SetX(0);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(210, 6, "RECEIVED by the Carrier From The Shipper in Apparent Good Order & Condition (Unless Otherwise Noted Herein) the Total Number or Quantity of Containers or Other Packages or Units Indicated Above Stated by the Shipper", 0, 1, 'L', true);
+
+$pdf->SetY(244.2);
+$pdf->SetX(0);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(210, 6, "Comprise The Cargo Specified Above For Transportation Subject to all the Terms Hereof (Including The Terms On Page One) From the Place of Receipt Or the Port of Loading. Whichever is Applicable, To the Port of Discharge ", 0, 1, 'L', true);
+
+$pdf->SetY(246.2);
+$pdf->SetX(0);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(210, 6, "or the Place of Delivery, Whichever is applicable. Delivery of the Goods Will Only be Made on Payment of All Freight & Charges. On Presentation of this Document Duly endorsed) to the Carrier, by or on Behalf of the Holder, ", 0, 1, 'L', true);
+
+$pdf->SetY(250.2);
+$pdf->SetX(0);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(210, 6, "the Rights and Liabilities Arising in Accordance With the Terms Hereof Shall (Without Prejudice to any Rule of Common Law or Statutes Rendering Them Binding Upon the Shipper, Holder and Carrier) ", 0, 1, 'L', true);
+
+$pdf->SetY(254.2);
+$pdf->SetX(0);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(210, 6, "Become Binding in all Respects Between the Carrier and Holder as Though the Contract Contained Herein or Evidenced Hereby Had been Made Between Them.", 0, 1, 'L', true);
+
+$pdf->SetY(258.2);
+$pdf->SetX(0);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(210, 6, "All Claims and Actions Arising Between the Carrier and the Merchant in Relation with the Contract of Carriage Evidenced by this Bill of Lading Shall Exclusively be Brought Before the Tribunal de Commerce de Hong Kong and ", 0, 1, 'L', true);
+
+$pdf->SetY(262.2);
+$pdf->SetX(0);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(210, 6, "no other Court Shall have Jurisdiction with Regards to any Such Claim or Action. Notwithstanding the above, the Carrier is also Entitled to Bring the Claim or Action Before the Court of the Place Where the Defendant has his", 0, 1, 'L', true);
+
+$pdf->SetY(266.2);
+$pdf->SetX(0);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(210, 6, "Registered Office", 0, 1, 'L', true);
+
+$pdf->SetY(270.2);
+$pdf->SetX(0);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 5.8);
+$pdf->Cell(210, 6, "In Witness Whereof Three (3) Original Bills of Lading, Unless Otherwise Stated above, have been Issued, one of which Being Accomplished, the others to be Void.", 0, 1, 'L', true);
+
+$pdf->Rect(0, 275, 210, 45, 'D'); //For A4
+$pdf->Rect(105, 275, 105, 40, 'D'); //For A4
 
 // $column_completed = "";
 // $column_engineer = "";
-// $max_per_page = 2;
+// $max_per_page = 2;to Comprise The Cargo Specified Above 
 // $counter_rec = 0;
 
 
