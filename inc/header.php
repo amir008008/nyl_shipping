@@ -7,10 +7,13 @@
 
     <title>CMA | CGM</title>
     <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/dashboard.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i"
+        rel="stylesheet">
 
 </head>
 
@@ -19,8 +22,8 @@
         <div class="header">
             <div class="header-left">
                 <a href="./dashboard" class="logo">
-                    <!-- <img src="" width="35" height="35" alt="">  -->
-                    <span>CMA | CGM</span>
+                    <img src="../assets/img/Image2.png" width="100" height="45" alt="">
+                    <!-- <span>CMA | CGM</span> -->
                 </a>
             </div>
             <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
@@ -40,7 +43,8 @@
                 </li>
             </ul>
             <div class="dropdown mobile-user-menu float-right">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                        class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="../logout.php">Logout</a>
                 </div>
@@ -55,15 +59,15 @@
                             <a href="./dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
                         <?php if ($_SESSION['role'] == 2) { ?>
-                            <li class="">
-                                <a href="./signature"><i class="fa fa-sign"></i> <span>Signature</span></a>
-                            </li>
+                        <li class="">
+                            <a href="./signature"><i class="fa fa-sign"></i> <span>Signature</span></a>
+                        </li>
 
-                            <li class="menu-title">Other Elements</li>
+                        <li class="menu-title">Other Elements</li>
 
-                            <li>
-                                <a href="./users"><i class="fa fa-users"></i> <span>Users</span></a>
-                            </li>
+                        <li>
+                            <a href="./users"><i class="fa fa-users"></i> <span>Users</span></a>
+                        </li>
                         <?php } ?>
                     </ul>
                 </div>

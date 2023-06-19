@@ -20,7 +20,7 @@ $date_of_date = NULL;
 
 $query = "SELECT * FROM information INNER JOIN container ON information.id = container.info_id WHERE information.id = '$get_info_id' AND container.info_id = '$get_info_id'";
 $run = mysqli_query($connection, $query);
-while($row = mysqli_fetch_assoc($run)){
+while ($row = mysqli_fetch_assoc($run)) {
 
     $shipper = $row['shipper'];
     $consignee = $row['consignee'];
@@ -61,7 +61,7 @@ $pdf->SetFont('Arial', '', 8);
 // if (strlen($shipper) > 50){
 //    $article = substr_replace($shipper,"\n",50,0);         
 // }
-$pdf->MultiCell(105,4,($shipper),'1','',0);
+$pdf->MultiCell(105, 4, ($shipper), '1', '', 0);
 
 // Right
 $pdf->SetY(8);
@@ -125,7 +125,7 @@ $pdf->SetFillColor(255, 255, 255);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont('Arial', '', 8);
 // $pdf->Rect(0, 31, 105, 20, 'D'); //For A4
-$pdf->MultiCell(105,4,($consignee),'1','',0);
+$pdf->MultiCell(105, 4, ($consignee), '1', '', 0);
 
 
 // Right
@@ -141,7 +141,7 @@ $pdf->Cell(105, 5, "Export References", 0, 1, 'L', true);
 $image1 = "../assets/img/Image2.png";
 $pdf->SetY(45);
 $pdf->SetX(140);
-$pdf->Cell(0, 0, $pdf->Image($image1, $pdf->GetX(), $pdf->GetY(), 35), 0, 0, 'C', false );
+$pdf->Cell(0, 0, $pdf->Image($image1, $pdf->GetX(), $pdf->GetY(), 35), 0, 0, 'C', false);
 
 $pdf->SetY(65);
 $pdf->SetX(105);
@@ -186,7 +186,7 @@ $pdf->SetFillColor(255, 255, 255);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont('Arial', '', 8);
 // $pdf->Rect(0, 31, 105, 20, 'D'); //For A4
-$pdf->MultiCell(105,4,($consignee),'1','',0);
+$pdf->MultiCell(105, 4, ($consignee), '1', '', 0);
 
 // Top
 
@@ -249,7 +249,7 @@ $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Rect(155.5, 98, 57.5, 13, 'D'); //For A4
 $pdf->Cell(57.5, 6, $number_of_original_bill_of_loding, 0, 1, 'C', true);
- 
+
 // Bottom
 
 $pdf->SetY(105);
@@ -311,7 +311,7 @@ $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Rect(155.5, 110, 57.5, 7, 'D'); //For A4
 $pdf->Cell(57.5, 6, $final_place_of_delivery, 0, 1, 'C', true);
- 
+
 // Description Table 
 
 // ADDITIONAL CLAUSES
@@ -416,7 +416,7 @@ $pdf->SetFillColor(255, 255, 255);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont('Arial', '', 5);
 $pdf->Cell(105, 6, "8 Free Out", 0, 1, 'L', true);
- 
+
 // Right Side 
 $pdf->Rect(105, 196, 105, 58.5, 'D'); //For A4
 
@@ -520,7 +520,7 @@ $pdf->SetFillColor(255, 255, 255);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont('Arial', '', 5);
 $pdf->Cell(105, 6, "TATOO FRIGHT-COMPANY OF AHMED ABDEL RAZIK NASR ABDEL MAKSOUD AND HIS PARTNER.", 0, 1, 'L', true);
- 
+
 
 // Term and Conditions
 $pdf->Rect(0, 285, 210, 45, 'D'); //For A4
@@ -559,8 +559,8 @@ $pdf->SetFillColor(255, 255, 255);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont('Arial', '', 6);
 $pdf->Cell(210, 6, "Carrier, by or on Behalf of the Holder,  the Rights and Liabilities Arising in Accordance With the Terms Hereof Shall (Without Prejudice to any Rule of Common Law or Statutes Rendering Them Binding Upon the ", 0, 1, 'L', true);
- 
- 
+
+
 
 // $pdf->Rect(105, 310, 105, 40, 'D'); //For A4
 
@@ -571,12 +571,12 @@ $pdf->Cell(210, 6, "Carrier, by or on Behalf of the Holder,  the Rights and Liab
 
 
 // Shipper
- 
+
 // Company Logo
 $image1 = "../assets/img/Image2.png";
 $pdf->SetY(310);
 // $pdf->SetX(0);
-$pdf->Cell(0, 0, $pdf->Image($image1, $pdf->GetX(), $pdf->GetY(), 35), 0, 0, 'C', false );
+$pdf->Cell(0, 0, $pdf->Image($image1, $pdf->GetX(), $pdf->GetY(), 35), 0, 0, 'C', false);
 
 
 $pdf->SetY(8);

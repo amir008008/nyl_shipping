@@ -18,10 +18,12 @@ $role = $_SESSION['role'];
             <div class="col-sm-4 col-3">
                 <h4 class="page-title">Bill of Lading</h4>
             </div>
+            <?php if($role == 2) { ?>
             <div class="col-sm-8 col-9 text-right m-b-20">
                 <a href="add_bill" class="btn btn-primary float-right btn-rounded"><i class="fa fa-plus"></i>
                     Add Bill of Lading </a>
             </div>
+            <?php } ?>
         </div>
         <div class="row filter-row">
             <div class="col-sm-6 col-md-3">
@@ -65,7 +67,7 @@ $role = $_SESSION['role'];
 
                             <?php
 
-                            $q = "SELECT * FROM `container` INNER JOIN `information` ON container.info_id = information.id GROUP BY info_id";
+                            $q = "SELECT * FROM `container` INNER JOIN `information` ON container.info_id = information.id GROUP BY info_id ORDER BY information.created_time DESC";
                             $query = mysqli_query($connection, $q);
 
                             while ($row = mysqli_fetch_assoc($query)) {
