@@ -212,8 +212,8 @@ if (isset($_POST['submit_bill'])) {
                                         <th>No and Kind of Packages</th>
                                         <th style="width: 400px">Description</th>
                                         <th>Gross Weight Cargo (KGS)</th>
-                                        <th>Measurement (KGS)</th>
-                                        <th>Tare (CBM)</th>
+                                        <th>Tare (KGS)</th>
+                                        <th>Measurement (CBM)</th>
                                         <th>Action</th>
                                     </thead>
                                 </tr>
@@ -228,6 +228,10 @@ if (isset($_POST['submit_bill'])) {
                             <tr class="">
                                 <td>
                                     <input type="button" value="Add Container" onclick="addItem()"
+                                        class="btn btn-sm btn-primary mx-2 text-white" />
+                                </td>
+                                <td>
+                                    <input type="button" value="Add Description" onclick="addItemDescription()"
                                         class="btn btn-sm btn-primary mx-2 text-white" />
                                 </td>
                             </tr>
@@ -268,23 +272,64 @@ function addItem() {
     var html = "<tr>";
     html += "<td>" + items + "</td>";
     html +=
-        '<td><input type="text" name="marks_and_nos_container_and_seals[]" class="form-control form-control-sm" required />';
-    // html +=
-    //     '<td><input type="number" name="number_of_containers[]" class="form-control form-control-sm" required /></td>';
+        '<td><textarea name="marks_and_nos_container_and_seals[]" class="form-control form-control-sm" rows="2" required></textarea></td>';
     html +=
-        '<td> <input type="text" name="no_and_kind_of_packages[]" class="form-control form-control-sm" required /></td>';
-    html += '<td> <input type="text" name="description[]" class="form-control form-control-sm" required /></td>';
+        '<td><textarea name="no_and_kind_of_packages[]" class="form-control form-control-sm" rows="2" required></textarea></td>';
+    html += '<td><textarea name="description[]" class="form-control form-control-sm" rows="2" required></textarea></td>';
     html +=
-        '<td><input type="number" min="0" name="gross_weight_cargo[]" class="form-control form-control-sm" required /></td>';
+        '<td><input type="number" step="0.001" min="0" value="0.000" name="gross_weight_cargo[]" class="form-control form-control-sm" oninput="limitDecimalDigits(this, 3);" required /></td>';
     html +=
-        '<td><input type="number" min="0" name="measurement[]" class="form-control form-control-sm" required /></td>';
-    html += '<td> <input type="number" min="0" name="tare[]" class="form-control form-control-sm" required /></td>';
-    html += "<td><button type='button' class='btn btn-sm btn-danger' onclick='deleteRow(this);'>Delete</button></td>"
+        '<td><input type="number" min="0" name="tare[]" class="form-control form-control-sm" required /></td>';
+    html +=
+        '<td><input type="number" step="0.001" min="0" value="0.000" name="measurement[]" class="form-control form-control-sm" oninput="limitDecimalDigits(this, 3);" required /></td>';
+    html +=
+        "<td><button type='button' class='btn btn-sm btn-danger' onclick='deleteRow(this);'>Delete</button></td>";
     html += "</tr>";
 
     var row = document.getElementById("tbody").insertRow();
     row.innerHTML = html;
 }
+
+
+function addItemDescription() {
+    items++;
+
+    var html = "<tr>";
+    html += "<td>" + items + "</td>";
+    html +=
+        '<td><input type="text" name="marks_and_nos_container_and_seals[]" class="form-control form-control-sm" readonly /></td>';
+    html +=
+        '<td><input type="text" name="no_and_kind_of_packages[]" class="form-control form-control-sm" readonly /></td>';
+    html +=
+        '<td><textarea name="description[]" class="form-control form-control-sm" rows="2" required></textarea></td>';
+    html +=
+        '<td><input type="number" step="0.001" min="0" name="gross_weight_cargo[]" class="form-control form-control-sm" readonly /></td>';
+    html += '<td><input type="number" min="0" name="tare[]" class="form-control form-control-sm" readonly /></td>';
+    html +=
+        '<td><input type="number" step="0.001" min="0" name="measurement[]" class="form-control form-control-sm" readonly /></td>';
+    html +=
+        "<td><button type='button' class='btn btn-sm btn-danger' onclick='deleteRow(this);'>Delete</button></td>";
+    html += "</tr>";
+
+    var row = document.getElementById("tbody").insertRow();
+    row.innerHTML = html;
+}
+
+
+function limitDecimalDigits(input, digits) {
+    var value = parseFloat(input.value);
+    if (isNaN(value)) {
+        input.value = "0.000";
+    } else {
+        var fixedValue = value.toFixed(digits);
+        if (fixedValue === "0.000") {
+            input.value = "0.000";
+        } else {
+            input.value = fixedValue;
+        }
+    }
+}
+
 
 function deleteRow(button) {
     items--;

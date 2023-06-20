@@ -196,9 +196,9 @@ if (isset($_GET['info_id'])) {
                                         <th>Number of Containers</th>
                                         <th>No and Kind of Packages</th>
                                         <th style="width: 400px">Description</th>
-                                        <th>Gross Weight Cargo</th>
-                                        <th>Measurement</th>
-                                        <th>Tare</th>
+                                        <th>Gross Weight Cargo (KGS)</th>
+                                        <th>Tare (KGS)</th>
+                                        <th>Measurement (CBM)</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody">
@@ -233,31 +233,31 @@ if (isset($_GET['info_id'])) {
                                         }
 
                                     ?>
-                                        <tr>
-                                            <td><?= $info_id ?></td>
-                                            <td>
-                                                <input type="text" name="marks_and_nos_container_and_seals" class="form-control" value="<?= $row['marks_and_nos_container_and_seals'] ?>">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="number_of_containers" class="form-control" value="<?= $row['number_of_containers'] ?>">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="no_and_kind_of_packages" class="form-control" value="<?= $row['no_and_kind_of_packages'] ?>">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="description" class="form-control" value="<?= $row['description'] ?>">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="gross_weight_cargo" class="form-control" value="<?= $row['gross_weight_cargo'] ?>">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="measurement" class="form-control" value="<?= $row['measurement'] ?>">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="tare" class="form-control" value="<?= $row['tare'] ?>">
-                                            </td>
+                                    <tr>
+                                        <td><?= $info_id ?></td>
+                                        <td>
+                                            <textarea name="marks_and_nos_container_and_seals" class="form-control" rows="2"><?= $row['marks_and_nos_container_and_seals'] ?></textarea>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="number_of_containers" class="form-control" value="<?= $row['number_of_containers'] ?>">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="no_and_kind_of_packages" class="form-control" value="<?= $row['no_and_kind_of_packages'] ?>">
+                                        </td>
+                                        <td>
+                                            <textarea name="description" class="form-control" rows="2"><?= $row['description'] ?></textarea>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="gross_weight_cargo" class="form-control" value="<?= $row['gross_weight_cargo'] ?>">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="measurement" class="form-control" value="<?= $row['measurement'] ?>">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="tare" class="form-control" value="<?= $row['tare'] ?>">
+                                        </td>
+                                    </tr>
 
-                                        </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>

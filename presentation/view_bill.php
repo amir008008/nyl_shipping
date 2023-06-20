@@ -162,9 +162,9 @@ if (isset($_GET['info_id'])) {
                                         <th>Number of Containers</th>
                                         <th>No and Kind of Packages</th>
                                         <th style="width: 400px">Description</th>
-                                        <th>Gross Weight Cargo</th>
-                                        <th>Measurement</th>
-                                        <th>Tare</th>
+                                        <th>Gross Weight Cargo (KGS)</th>
+                                        <th>Tare (KGS)</th>
+                                        <th>Measurement (CBM)</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody">
@@ -183,8 +183,9 @@ if (isset($_GET['info_id'])) {
                                             <td><?= $row['no_and_kind_of_packages'] ?></td>
                                             <td><?= $row['description'] ?></td>
                                             <td><?= $row['gross_weight_cargo'] ?></td>
-                                            <td><?= $row['measurement'] ?></td>
                                             <td><?= $row['tare'] ?></td>
+                                            <td><?= $row['measurement'] ?></td>
+
 
                                         </tr>
                                     <?php } ?>

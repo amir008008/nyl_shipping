@@ -191,10 +191,10 @@ $pdf->SetXY(52.5, 63); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 
 $pdf->SetXY(105, 63); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(50.5, 6, "FREIGHT TO BE PAID AT", 0, 1, 'C', true); $pdf->Rect(105, 63, 50.5, 15, 'D');
 $pdf->SetXY(155.5, 63); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(57.5, 6, "NUMBER OF ORIGINAL BILLS OF LADING", 0, 1, 'C', true); $pdf->Rect(155.5, 63, 55.5, 15, 'D');
 
-$pdf->SetXY(1, 70); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $pre_carriage_by, 0, 1, 'C', true);
-$pdf->SetXY(53.5, 70); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $place_of_receipt, 0, 1, 'C', true); 
-$pdf->SetXY(106, 70); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $freight_to_be_paid_at, 0, 1, 'C', true); 
-$pdf->SetXY(158.5, 70); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(50.5, 6, $number_of_original_bill_of_loding, 0, 1, 'C', true);
+$pdf->SetXY(1, 69); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $pre_carriage_by, 0, 1, 'C', true);
+$pdf->SetXY(53.5, 69); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $place_of_receipt, 0, 1, 'C', true); 
+$pdf->SetXY(106, 69); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $freight_to_be_paid_at, 0, 1, 'C', true); 
+$pdf->SetXY(158.5, 69); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(50.5, 6, $number_of_original_bill_of_loding, 0, 1, 'C', true);
 /*
 
 Shipping Data Summery
@@ -202,45 +202,126 @@ Bottom Side
 
 */
 
-$pdf->SetXY(0, 78); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(52.5, 6, "VESSEL", 0, 1, 'C', true); $pdf->Rect(0, 78, 52.5, 15, 'D'); 
-$pdf->SetXY(52.5, 78); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(52.5, 6, "PORT OF LOADING", 0, 1, 'C', true); $pdf->Rect(52.5, 78, 52.5, 15, 'D'); 
-$pdf->SetXY(105, 78); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(50.5, 6, "PORT OF DISCHARGE", 0, 1, 'C', true); $pdf->Rect(105, 78, 50.5, 15, 'D');
-$pdf->SetXY(155.5, 78); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(57.5, 6, "FINAL PLACE OF DELIVERY*", 0, 1, 'C', true); $pdf->Rect(155.5, 78, 55.5, 15, 'D');
+$pdf->SetXY(0, 75); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(52.5, 6, "VESSEL", 0, 1, 'C', true); $pdf->Rect(0, 75, 52.5, 12.5, 'D'); 
+$pdf->SetXY(52.5, 75); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(52.5, 6, "PORT OF LOADING", 0, 1, 'C', true); $pdf->Rect(52.5, 75, 52.5, 12.5, 'D'); 
+$pdf->SetXY(105, 75); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(50.5, 6, "PORT OF DISCHARGE", 0, 1, 'C', true); $pdf->Rect(105, 75, 50.5, 12.5, 'D');
+$pdf->SetXY(155.5, 75); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(57.5, 6, "FINAL PLACE OF DELIVERY*", 0, 1, 'C', true); $pdf->Rect(155.5, 75, 55.5, 12.5, 'D');
 
-$pdf->SetXY(1, 86); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $vessel, 0, 1, 'C', true);
-$pdf->SetXY(53.5, 86); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $port_of_loading, 0, 1, 'C', true); 
-$pdf->SetXY(106, 86); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $port_of_discharge, 0, 1, 'C', true); 
-$pdf->SetXY(158.5, 86); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(50.5, 6, $final_place_of_delivery, 0, 1, 'C', true);
+$pdf->SetXY(1, 81); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $vessel, 0, 1, 'C', true);
+$pdf->SetXY(53.5, 81); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $port_of_loading, 0, 1, 'C', true); 
+$pdf->SetXY(106, 81); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $port_of_discharge, 0, 1, 'C', true); 
+$pdf->SetXY(158.5, 81); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(50.5, 6, $final_place_of_delivery, 0, 1, 'C', true);
 
 /*
 Table 
 */
 
-$pdf->SetXY(0, 93);
-// $width_cell=array(10,10,10,10, 10, 10);
-$pdf->SetFillColor(193,229,252); // Background color of header 
-// Header starts /// 
-$pdf->SetXY(0, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(25,6,'MARKS AND NOS',1,1,'C');
-$pdf->SetXY(25, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'NO OF PACKAGES',1,1,'C');
-$pdf->SetXY(55, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(75,6,'DESCRIPTION',1,1,'C');
-$pdf->SetXY(130, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'CARGO WEIGHT',1,1,'C');
-$pdf->SetXY(160, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(20,6,'TARE',1,1,'C');
-$pdf->SetXY(180, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'MEASUREMENT',1,1,'C');
+$pdf->SetXY(10, 93); // Adjust the X position for the header
+
+// Header starts ///
+$pdf->SetXY(0, 87.5);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 7);
+$pdf->MultiCell(25, 6, 'MARKS AND NOS', 1, 'C');
+
+$pdf->SetXY(25, 87.5);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 7);
+$pdf->MultiCell(30, 6, 'NO OF PACKAGES', 1, 'C');
+
+$pdf->SetXY(55, 87.5);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 7);
+$pdf->MultiCell(75, 6, 'DESCRIPTION', 1, 'L');
+
+$pdf->SetXY(130, 87.5);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 7);
+$pdf->MultiCell(30, 6, 'CARGO WEIGHT', 1, 'C');
+$pdf->SetXY(130, 93.1);
+$pdf->SetFont('Arial', '', 7);
+$pdf->Cell(30, 4, 'KGS', 0, 1, 'C');
+
+$pdf->SetXY(160, 87.5);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 7);
+$pdf->MultiCell(20, 6, 'TARE', 1, 'C');
+$pdf->SetXY(160, 93.1);
+$pdf->SetFont('Arial', '', 7);
+$pdf->Cell(20, 4, 'KGS', 0, 1, 'C');
+
+$pdf->SetXY(180, 87.5);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 7);
+$pdf->MultiCell(30, 6, 'MEASUREMENT', 1, 'C');
+$pdf->SetXY(180, 93.1);
+$pdf->SetFont('Arial', '', 7);
+$pdf->Cell(30, 4, 'CBM', 0, 1, 'C');
 
 //// header is over ///////
-
-$d_query = "SELECT * FROM container WHERE container.info_id = '$get_info_id' LIMIT 8";
+$query = "SELECT * FROM container WHERE container.info_id = '$get_info_id' LIMIT 8";
 $run_d = mysqli_query($connection, $query);
 
-    while($x = mysqli_fetch_assoc($run_d)){
-        $pdf->SetX(0);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(25,6,$x['marks_and_nos_container_and_seals'], 0, 0,'C');
-        $pdf->SetX(25);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(30,6,$x['no_and_kind_of_packages'], 0, 0,'C');
-        $pdf->SetX(55);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(75,6,$x['description'], 0, 0,'C');
-        $pdf->SetX(130);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(30,6,$x['gross_weight_cargo'], 0, 0,'C');
-        $pdf->SetX(160);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(30,6,$x['tare'], 0, 0,'C');
-        $pdf->SetX(180);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(30,6,$x['measurement'], 0, 0,'C');
-        $pdf->Ln();
+$y = 95; // Adjust the initial Y position for rows
+
+while ($x = mysqli_fetch_assoc($run_d)) {
+    $remainingArea = $pdf->GetPageHeight() - $y;
+    
+    if ($remainingArea < 6) {
+        $pdf->AddPage();
+        $y = 90; // Reset the Y position for the new page
     }
+    
+    $pdf->SetXY(0, $y); // Adjust the X and Y positions for each cell
+    $pdf->SetFillColor(200, 200, 200);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->SetFont('Arial', '', 6);
+    $pdf->MultiCell(25, 6 , $x['marks_and_nos_container_and_seals'], 0, 'C');
+
+    $pdf->SetXY(25, $y); // Adjust the X and Y positions for each cell
+    $pdf->SetFillColor(200, 200, 200);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->SetFont('Arial', '', 6);
+    $pdf->MultiCell(30, 6, $x['no_and_kind_of_packages'], 0, 'R');
+
+    $pdf->SetXY(55, $y); // Adjust the X and Y positions for each cell
+    $pdf->SetFillColor(200, 200, 200);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->SetFont('Arial', '', 6);
+    $pdf->MultiCell(75, 6 , $x['description'], 0, 'L');
+    
+
+    $pdf->SetXY(130, $y); // Adjust the X and Y positions for each cell
+    $pdf->SetFillColor(200, 200, 200);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->SetFont('Arial', '', 6);
+    $pdf->MultiCell(30, 6, $x['gross_weight_cargo'], 0, 'C');
+
+    $pdf->SetXY(160, $y); // Adjust the X and Y positions for each cell
+    $pdf->SetFillColor(200, 200, 200);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->SetFont('Arial', '', 6);
+    $pdf->MultiCell(20, 6, $x['tare'], 0, 'C');
+
+    $pdf->SetXY(180, $y); // Adjusted X and Y positions to align the last cell
+    $pdf->SetFillColor(200, 200, 200);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->SetFont('Arial', '', 6);
+    $pdf->MultiCell(30, 6, $x['measurement'], 0, 'C');
+
+    $y += 6; // Increase the Y position for the next row
+}
+
+if ($y >= $pdf->GetPageHeight()) {
+    $pdf->AddPage();
+    $y = 90; // Reset the Y position for the new page
+}
 
 
 /*
@@ -466,12 +547,51 @@ $pdf->SetXY(0, 47.1);
 // $width_cell=array(10,10,10,10, 10, 10);
 $pdf->SetFillColor(193,229,252); // Background color of header 
 // Header starts /// 
-$pdf->SetXY(0, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(25,6,'MARKS AND NOS',1,1,'C');
-$pdf->SetXY(25, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'NO OF PACKAGES',1,1,'C');
-$pdf->SetXY(55, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(75,6,'DESCRIPTION',1,1,'C');
-$pdf->SetXY(130, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'CARGO WEIGHT',1,1,'C');
-$pdf->SetXY(160, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(20,6,'TARE',1,1,'C');
-$pdf->SetXY(180, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'MEASUREMENT',1,1,'C');
+$pdf->SetXY(0, 53.1);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 7);
+$pdf->Cell(25, 6, 'MARKS AND NOS', 1, 1, 'C');
+
+$pdf->SetXY(25, 53.1);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 7);
+$pdf->Cell(30, 6, 'NO OF PACKAGES', 1, 1, 'C');
+
+$pdf->SetXY(55, 53.1);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 7);
+$pdf->Cell(75, 6, 'DESCRIPTION', 1, 1, 'C');
+
+$pdf->SetXY(130, 53.1);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 7);
+$pdf->Cell(30, 6, 'CARGO WEIGHT', 1, 1, 'C');
+$pdf->SetXY(130, 59.1);
+$pdf->SetFont('Arial', '', 7);
+$pdf->Cell(30, 4, 'KGS', 0, 1, 'C');
+
+$pdf->SetXY(160, 53.1);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 7);
+$pdf->Cell(20, 6, 'TARE', 1, 1, 'C');
+$pdf->SetXY(160, 59.1);
+$pdf->SetFont('Arial', '', 7);
+$pdf->Cell(20, 4, 'KGS', 0, 1, 'C');
+
+$pdf->SetXY(180, 53.1);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 7);
+$pdf->Cell(30, 6, 'MEASUREMENT', 1, 1, 'C');
+$pdf->SetXY(180, 59.1);
+$pdf->SetFont('Arial', '', 7);
+$pdf->Cell(30, 4, 'CBM', 0, 1, 'C');
+
 
 //// header is over ///////
 $d_query = "SELECT * FROM container WHERE container.info_id = '$get_info_id'";
