@@ -49,8 +49,32 @@ $pdf->GetPageHeight();
 // Shipper Details
 
 */
-$pdf->SetXY(0, 0); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 8); $pdf->Cell(105, 5, "Shipper", 0, 1, 'L', true); $pdf->Rect(0, 0, 105, 21, 'D'); 
-$pdf->SetXY(0, 5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 8); $pdf->MultiCell(105, 4,($shipper), 0);
+$pdf->SetXY(0, 0);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(105, 5, "Shipper", 0, 1, 'L', true);
+$pdf->Rect(0, 0, 105, 21, 'D');
+
+$pdf->SetXY(0, 6);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 6);
+
+$lineHeight = 1.6;
+$textLines = explode("\n", $shipper);
+
+$pdf->SetX(10); // Set X position with an indent
+
+foreach ($textLines as $index => $line) {
+    if ($index === 0) {
+        $pdf->Cell(105, $lineHeight, $line, 0, 1, 'L', false, '', 10);
+    } else {
+        $pdf->Cell(105, $lineHeight, $line, 0, 1, 'L', false);
+    }
+    $pdf->SetX(0);
+    $pdf->SetY($pdf->GetY() + $lineHeight);
+}
 
 // Right Side Container
 // Title
@@ -68,8 +92,33 @@ $pdf->SetXY(166, 16); $pdf->SetFillColor(0, 0, 0); $pdf->SetFillColor(255, 255, 
 
 */
 
-$pdf->SetXY(0, 21); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 8); $pdf->Cell(105, 5, "Shipper", 0, 1, 'L', true); $pdf->Rect(105, 21, 105, 42, 'D'); 
-$pdf->SetXY(0, 26); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 8); $pdf->MultiCell(105, 4,($shipper), 0);
+$pdf->SetXY(0, 21);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(105, 5, "Consignee", 0, 1, 'L', true);
+$pdf->Rect(0, 21, 105, 21, 'D');
+
+$pdf->SetXY(0, 27);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 6);
+
+$lineHeight = 1.6;
+$textLines = explode("\n", $consignee);
+
+$pdf->SetX(10); // Set X position with an indent
+
+foreach ($textLines as $index => $line) {
+    if ($index === 0) {
+        $pdf->Cell(105, $lineHeight, $line, 0, 1, 'L', false, '', 10);
+    } else {
+        $pdf->Cell(105, $lineHeight, $line, 0, 1, 'L', false);
+    }
+    $pdf->SetX(0);
+    $pdf->SetY($pdf->GetY() + $lineHeight);
+}
+
 
 /*
 
@@ -103,8 +152,32 @@ $pdf->Cell(105, 5, "T562 024 422 R.C.S. Marseille", 0, 1, 'C', true);
 
 */
 
-$pdf->SetXY(0, 42); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 8); $pdf->Cell(105, 5, "Notify Party", 0, 1, 'L', true); $pdf->Rect(0, 42, 105, 21, 'D'); 
-$pdf->SetXY(0, 47); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 8); $pdf->MultiCell(105, 4,($notify_party), 0);
+$pdf->SetXY(0, 42);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(105, 5, "Notify Party", 0, 1, 'L', true);
+$pdf->Rect(0, 42, 105, 21, 'D');
+
+$pdf->SetXY(0, 48);
+$pdf->SetFillColor(255, 255, 255);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 6);
+
+$lineHeight = 1.6; // Adjust line height as desired
+$textLines = explode("\n", $notify_party);
+
+$pdf->SetX(10); // Set X position with an indent
+
+foreach ($textLines as $index => $line) {
+    if ($index === 0) {
+        $pdf->Cell(105, $lineHeight, $line, 0, 1, 'L', false, '', 10); // Apply indent only for the first line
+    } else {
+        $pdf->Cell(105, $lineHeight, $line, 0, 1, 'L', false);
+    }
+    $pdf->SetX(0);
+    $pdf->SetY($pdf->GetY() + $lineHeight);
+}
 
 /*
 
