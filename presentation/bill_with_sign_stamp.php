@@ -35,7 +35,7 @@ while($row = mysqli_fetch_assoc($run)){
     $port_of_loading = $row['port_of_loading'];
     $number_of_original_bill_of_loding = $row['number_of_original_bill_of_loding'];
     $final_place_of_delivery = $row['final_place_of_delivery'];
-    $date_of_date = $row['date_of_date'];
+    $date_of_date = $row['date_of_issue'];
 }
 
 $pdf = new FPDF(); 
@@ -155,12 +155,21 @@ $pdf->SetXY(160, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0,
 $pdf->SetXY(180, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'MEASUREMENT',1,1,'C');
 
 //// header is over ///////
-$d_query = "SELECT * FROM container WHERE container.info_id = '$get_info_id'";
+
+$d_query = "SELECT * FROM container WHERE container.info_id = '$get_info_id' LIMIT 8";
 $run_d = mysqli_query($connection, $query);
-foreach($run_d as $row){
-    $pdf->SetXY(1, 98.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $d_query, 0, 1, 'C', true);
-    
-}
+
+    while($x = mysqli_fetch_assoc($run_d)){
+        $pdf->SetX(0);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(25,6,$x['marks_and_nos_container_and_seals'], 0, 0,'C');
+        $pdf->SetX(25);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(30,6,$x['no_and_kind_of_packages'], 0, 0,'C');
+        $pdf->SetX(55);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(75,6,$x['description'], 0, 0,'C');
+        $pdf->SetX(130);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(30,6,$x['gross_weight_cargo'], 0, 0,'C');
+        $pdf->SetX(160);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(30,6,$x['tare'], 0, 0,'C');
+        $pdf->SetX(180);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(30,6,$x['measurement'], 0, 0,'C');
+        $pdf->Ln();
+    }
+
+
 /*
 
 ADDITIONAL CLAUSES
@@ -327,7 +336,7 @@ $pdf->Cell(35, 4, strtotime($date_of_date), 0, 1, 'L', true);
 
 // Company Logo
 $image1 = "../assets/img/Image2.png";
-$pdf->SetY(310);
+$pdf->SetXY(0,280);
 // $pdf->SetX(0);
 $pdf->Cell(0, 0, $pdf->Image($image1, $pdf->GetX(), $pdf->GetY(), 35), 0, 0, 'C', false);
 
@@ -392,6 +401,25 @@ $pdf->SetXY(160, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0,
 $pdf->SetXY(180, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'MEASUREMENT',1,1,'C');
 
 //// header is over ///////
+$d_query = "SELECT * FROM container WHERE container.info_id = '$get_info_id'";
+if($result = mysqli_query($connection, $d_query)){
+
+    $rowCount = mysqli_num_rows($result);
+
+    if($rowCount > 8){
+        $run_d = mysqli_query($connection, $query);
+
+        while($x = mysqli_fetch_assoc($run_d)){
+            $pdf->SetX(0);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(25,6,$x['marks_and_nos_container_and_seals'], 0, 0,'C');
+            $pdf->SetX(25);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(30,6,$x['no_and_kind_of_packages'], 0, 0,'C');
+            $pdf->SetX(55);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(75,6,$x['description'], 0, 0,'C');
+            $pdf->SetX(130);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(30,6,$x['gross_weight_cargo'], 0, 0,'C');
+            $pdf->SetX(160);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(30,6,$x['tare'], 0, 0,'C');
+            $pdf->SetX(180);$pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6); $pdf->Cell(30,6,$x['measurement'], 0, 0,'C');
+            $pdf->Ln();
+        }
+    }
+}
 
 
 

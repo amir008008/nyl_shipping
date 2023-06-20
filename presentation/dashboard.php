@@ -59,7 +59,6 @@ $role = $_SESSION['role'];
                                 <th>Bill of Lading No.</th>
                                 <th>Issue Date</th>
                                 <th>Place of Issue</th>
-                                <th>Number of Containers</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -80,9 +79,6 @@ $role = $_SESSION['role'];
                                 <td><?= $row['bill_of_lading_number'] ?></td>
                                 <td><?= $row['date_of_issue'] ?></td>
                                 <td><?= $row['port_of_discharge'] ?></td>
-                                <td>
-                                    <span class="custom-badge status-green"><?= $row['number_of_containers'] ?></span>
-                                </td>
                                 <td>
                                     <a href="view_bill?info_id=<?php echo $row['info_id'] ?>">
                                         <i class="fas fa-eye text-primary mx-1"></i>

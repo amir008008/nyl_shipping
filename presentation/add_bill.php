@@ -41,8 +41,8 @@ if (isset($_POST['submit_bill'])) {
     echo $lastId;
 
     for ($a = 0; $a < count($_POST["marks_and_nos_container_and_seals"]); $a++) {
-        $sql = "INSERT INTO `container`(`info_id`, `marks_and_nos_container_and_seals`, `number_of_containers`, `no_and_kind_of_packages`, `description`, `gross_weight_cargo`, `measurement`, `tare`, `create_by`) 
-                    VALUES ('$lastId', '" . $_POST["marks_and_nos_container_and_seals"][$a] . "', '" . $_POST["number_of_containers"][$a] . "', '" . $_POST["no_and_kind_of_packages"][$a] . "', 
+        $sql = "INSERT INTO `container`(`info_id`, `marks_and_nos_container_and_seals`, `no_and_kind_of_packages`, `description`, `gross_weight_cargo`, `measurement`, `tare`, `create_by`) 
+                    VALUES ('$lastId', '" . $_POST["marks_and_nos_container_and_seals"][$a] . "', '" . $_POST["no_and_kind_of_packages"][$a] . "', 
                         '" . $_POST["description"][$a] . "', '" . $_POST["gross_weight_cargo"][$a] . "', '" . $_POST["measurement"][$a] . "', '" . $_POST["tare"][$a] . "', '" . $user_id . "')";
         echo $sql;
         $runner =  mysqli_query($connection, $sql);
@@ -211,9 +211,9 @@ if (isset($_POST['submit_bill'])) {
                                         <!-- <th>Number of Containers</th> -->
                                         <th>No and Kind of Packages</th>
                                         <th style="width: 400px">Description</th>
-                                        <th>Gross Weight Cargo</th>
-                                        <th>Measurement</th>
-                                        <th>Tare</th>
+                                        <th>Gross Weight Cargo (KGS)</th>
+                                        <th>Measurement (KGS)</th>
+                                        <th>Tare (CBM)</th>
                                         <th>Action</th>
                                     </thead>
                                 </tr>
@@ -274,9 +274,11 @@ function addItem() {
     html +=
         '<td> <input type="text" name="no_and_kind_of_packages[]" class="form-control form-control-sm" required /></td>';
     html += '<td> <input type="text" name="description[]" class="form-control form-control-sm" required /></td>';
-    html += '<td><input type="text" name="gross_weight_cargo[]" class="form-control form-control-sm" required /></td>';
-    html += '<td><input type="text" name="measurement[]" class="form-control form-control-sm" required /></td>';
-    html += '<td> <input type="text" name="tare[]" class="form-control form-control-sm" required /></td>';
+    html +=
+        '<td><input type="number" min="0" name="gross_weight_cargo[]" class="form-control form-control-sm" required /></td>';
+    html +=
+        '<td><input type="number" min="0" name="measurement[]" class="form-control form-control-sm" required /></td>';
+    html += '<td> <input type="number" min="0" name="tare[]" class="form-control form-control-sm" required /></td>';
     html += "<td><button type='button' class='btn btn-sm btn-danger' onclick='deleteRow(this);'>Delete</button></td>"
     html += "</tr>";
 
