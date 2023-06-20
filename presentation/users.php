@@ -62,46 +62,51 @@ if (!isset($_SESSION['user_id'])) {
                             <?php
 
                             $i = 1;
+                            
                             $query = "SELECT * FROM users ORDER BY id ASC";
                             $query_run = mysqli_query($connection, $query);
-                            while ($row = mysqli_fetch_assoc($query_run)) {
+                            
+                                while ($row = mysqli_fetch_assoc($query_run)) {
 
                             ?>
-                                <tr>
-                                    <td><?= $i++; ?> </td>
-                                    <td><?= $row['id'] ?></td>
-                                    <td><?= $row['name'] ?></td>
-                                    <td><?= $row['email'] ?></td>
-                                    <td><?= $row['username'] ?></td>
-                                    <td>
-                                        <?php if ($row['role'] == '2') { ?>
-                                            <span class="badge badge-warning p-1 px-2" style="color: black">Admin</span>
-                                        <?php } else { ?>
-                                            <span class="badge badge-secondary p-1 px-2 text-white" style="color: black">Printer</span>
-                                        <?php } ?>
-                                    </td>
-                                    <td><?= $row['created_by'] ?></td>
-                                    <td>
-                                        <?php if ($row['status'] == '0') { ?>
-                                            <span class="custom-badge status-green">Active</span>
-                                        <?php } else { ?>
-                                            <span class="custom-badge status-grey">Inactive</span>
-                                        <?php } ?>
-                                    </td>
-                                    <td>
+                            <tr>
+                                <td><?= $i++; ?> </td>
+                                <td><?= $row['id'] ?></td>
+                                <td><?= $row['name'] ?></td>
+                                <td><?= $row['email'] ?></td>
+                                <td><?= $row['username'] ?></td>
+                                <td>
+                                    <?php if ($row['role'] == '2') { ?>
+                                    <span class="badge badge-warning p-1 px-2" style="color: black">Admin</span>
+                                    <?php } else { ?>
+                                    <span class="badge badge-secondary p-1 px-2 text-white"
+                                        style="color: black">Printer</span>
+                                    <?php } ?>
+                                </td>
+                                <td><?= $row['created_by'] ?></td>
+                                <td>
+                                    <?php if ($row['status'] == '0') { ?>
+                                    <span class="custom-badge status-green">Active</span>
+                                    <?php } else { ?>
+                                    <span class="custom-badge status-grey">Inactive</span>
+                                    <?php } ?>
+                                </td>
+                                <td>
 
-                                        <a href="view_users?user_id=<?php echo $row['id'] ?>">
-                                            <i class="fas fa-eye text-primary mx-1"></i>
-                                        </a>
-                                        <a href="edit_user?user_id=<?php echo $row['id'] ?>">
-                                            <i class="fa-solid fa-pen-to-square mx-1"></i>
-                                        </a>
-                                        <a href="delete_user?user_id=<?php echo $row['id'] ?>" onclick="return confirm('Make sure you want to delete this user')">
-                                            <i class="fas fa-trash text-danger mx-1"></i>
-                                        </a>
+                                    <a href="view_users?user_id=<?php echo $row['id'] ?>">
+                                        <i class="fas fa-eye text-primary mx-1"></i>
+                                    </a>
+                                    <a href="edit_user?user_id=<?php echo $row['id'] ?>">
+                                        <i class="fa-solid fa-pen-to-square mx-1"></i>
+                                    </a>
 
-                                    </td>
-                                </tr>
+                                    <a href="delete_user?user_id=<?php echo $row['id'] ?>"
+                                        onclick="return confirm('Make sure you want to delete this user')">
+                                        <i class="fas fa-trash text-danger mx-1"></i>
+                                    </a>
+
+                                </td>
+                            </tr>
 
                             <?php } ?>
 

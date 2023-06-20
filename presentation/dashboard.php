@@ -28,7 +28,7 @@ $role = $_SESSION['role'];
         <div class="row filter-row">
             <div class="col-sm-6 col-md-3">
                 <div class="form-group form-focus">
-                    <label class="focus-label">Container Number</label>
+                    <label class="focus-label" id="myInput">Container Number</label>
                     <input type="text" class="form-control floating">
                 </div>
             </div>
@@ -63,7 +63,7 @@ $role = $_SESSION['role'];
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="myTable">
 
                             <?php
 
@@ -146,4 +146,15 @@ $role = $_SESSION['role'];
 
 </div>
 
-<?php include_once '../inc/footer.php';
+<?php include_once '../inc/footer.php'; ?>
+
+<script>
+$(document).ready(function() {
+    $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+});
+</script>

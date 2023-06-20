@@ -72,21 +72,29 @@ if (isset($_POST['submit_bill'])) {
                             <div class="row">
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label for="shipper" class="col-sm-1 col-form-label">Shipper<span class="mx-1 text-danger">*</span></label>
+                                        <label for="shipper" class="col-sm-1 col-form-label">Shipper<span
+                                                class="mx-1 text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <textarea type="email" class="form-control" id="shipper" name="shipper" placeholder="Shipper Details" rows="3" required></textarea>
+                                            <textarea type="email" class="form-control" id="shipper" name="shipper"
+                                                placeholder="Shipper Details" rows="3" required
+                                                maxlength="5000"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="consignee" class="col-sm-1 col-form-label">Consignee<span class="mx-1 text-danger">*</span></label>
+                                        <label for="consignee" class="col-sm-1 col-form-label">Consignee<span
+                                                class="mx-1 text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <textarea type="email" class="form-control" id="consignee" name="consignee" placeholder="Consignee" rows="3" required></textarea>
+                                            <textarea type="email" class="form-control" id="consignee" name="consignee"
+                                                placeholder="Consignee" rows="3" required maxlength="5000"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="notify_party" class="col-sm-1 col-form-label">Notify Party <span class="mx-1 text-danger">*</span></label>
+                                        <label for="notify_party" class="col-sm-1 col-form-label">Notify Party <span
+                                                class="mx-1 text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <textarea type="email" class="form-control" id="notify_party" placeholder="Notify Party" rows="3" name="notify_party" required></textarea>
+                                            <textarea type="email" class="form-control" id="notify_party"
+                                                placeholder="Notify Party" rows="3" name="notify_party" required
+                                                maxlength="5000"></textarea>
                                         </div>
                                     </div>
 
@@ -98,67 +106,88 @@ if (isset($_POST['submit_bill'])) {
 
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-md-3 col-form-label">Voyage Number <span class="mx-1 text-danger">*</span></label>
+                                        <label class="col-md-3 col-form-label">Voyage Number <span
+                                                class="mx-1 text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" placeholder="Voyage Number" name="voyage_number" required>
+                                            <input type="text" class="form-control" placeholder="Voyage Number"
+                                                name="voyage_number" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-3 col-form-label">Pre Carriage By <span class="mx-1 text-danger">*</span></label>
+                                        <label class="col-md-3 col-form-label">Pre Carriage By <span
+                                                class="mx-1 text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" placeholder="Pre Carriage By" name="pre_carriage_by" required>
+                                            <input type="text" class="form-control" placeholder="Pre Carriage By"
+                                                name="pre_carriage_by" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-3 col-form-label">Vessel<span class="mx-1 text-danger">*</span></label>
+                                        <label class="col-md-3 col-form-label">Vessel<span
+                                                class="mx-1 text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" placeholder="Vessel" name="vessel" required>
+                                            <input type="text" class="form-control" placeholder="Vessel" name="vessel"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-3 col-form-label">Freight to be paid at<span class="mx-1 text-danger">*</span></label>
+                                        <label class="col-md-3 col-form-label">Freight to be paid at<span
+                                                class="mx-1 text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" placeholder="Freight to be paid at" name="freight_to_be_paid_at" required>
+                                            <input type="text" class="form-control" placeholder="Freight to be paid at"
+                                                name="freight_to_be_paid_at" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-3 col-form-label">Port of Discharge<span class="mx-1 text-danger">*</span></label>
+                                        <label class="col-md-3 col-form-label">Port of Discharge<span
+                                                class="mx-1 text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" placeholder="Port of Discharge" name="port_of_discharge" required>
+                                            <input type="text" class="form-control" placeholder="Port of Discharge"
+                                                name="port_of_discharge" required>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-md-3 col-form-label">Bill of Lading Number <span class="mx-1 text-danger">*</span></label>
+                                        <label class="col-md-3 col-form-label">Bill of Lading Number <span
+                                                class="mx-1 text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" placeholder="Bill of Lading Number" name="bill_of_lading_number" required>
+                                            <input type="text" class="form-control" placeholder="Bill of Lading Number"
+                                                name="bill_of_lading_number" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-3 col-form-label">Place of Receipt <span class="mx-1 text-danger">*</span></label>
+                                        <label class="col-md-3 col-form-label">Place of Receipt <span
+                                                class="mx-1 text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" placeholder="Place of Receipt" name="place_of_receipt" required>
+                                            <input type="text" class="form-control" placeholder="Place of Receipt"
+                                                name="place_of_receipt" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-3 col-form-label">Port of Loading <span class="mx-1 text-danger">*</span></label>
+                                        <label class="col-md-3 col-form-label">Port of Loading <span
+                                                class="mx-1 text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" placeholder="Port of Loading" name="port_of_loading" required>
+                                            <input type="text" class="form-control" placeholder="Port of Loading"
+                                                name="port_of_loading" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 col-form-label">Number of Original Bills of
                                             Lading <span class="mx-1 text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" placeholder="Number of Original Bills of Lading" name="number_of_original_bill_of_loding" required>
+                                            <input type="text" class="form-control"
+                                                placeholder="Number of Original Bills of Lading"
+                                                name="number_of_original_bill_of_loding" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-3 col-form-label">Final Place of Delivery <span class="mx-1 text-danger">*</span></label>
+                                        <label class="col-md-3 col-form-label">Final Place of Delivery <span
+                                                class="mx-1 text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" placeholder="Final Place of Delivery" name="final_place_of_delivery" require_once>
+                                            <input type="text" class="form-control"
+                                                placeholder="Final Place of Delivery" name="final_place_of_delivery"
+                                                require_once>
                                         </div>
                                     </div>
                                 </div>
@@ -179,7 +208,7 @@ if (isset($_POST['submit_bill'])) {
                                     <thead>
                                         <th>#</th>
                                         <th>Marks and NOS Container and Seals</th>
-                                        <th>Number of Containers</th>
+                                        <!-- <th>Number of Containers</th> -->
                                         <th>No and Kind of Packages</th>
                                         <th style="width: 400px">Description</th>
                                         <th>Gross Weight Cargo</th>
@@ -198,7 +227,8 @@ if (isset($_POST['submit_bill'])) {
                         <table class="mb-3 mx-auto">
                             <tr class="">
                                 <td>
-                                    <input type="button" value="Add Container" onclick="addItem()" class="btn btn-sm btn-primary mx-2 text-white" />
+                                    <input type="button" value="Add Container" onclick="addItem()"
+                                        class="btn btn-sm btn-primary mx-2 text-white" />
                                 </td>
                             </tr>
                         </table>
@@ -207,9 +237,11 @@ if (isset($_POST['submit_bill'])) {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-md-3 col-form-label">Date of Issue <span class="text-danger mx-1">*</span></label>
+                                    <label class="col-md-3 col-form-label">Date of Issue <span
+                                            class="text-danger mx-1">*</span></label>
                                     <div class="col-md-9">
-                                        <input type="date" class="form-control" name="date_of_issue" required>
+                                        <input type="date" class="form-control" name="date_of_issue" required
+                                            min="2023-05-09" max="2100-05-10">
                                     </div>
                                 </div>
                             </div>
@@ -228,35 +260,35 @@ if (isset($_POST['submit_bill'])) {
 </div>
 
 <script>
-    var items = 0;
+var items = 0;
 
-    function addItem() {
-        items++;
+function addItem() {
+    items++;
 
-        var html = "<tr>";
-        html += "<td>" + items + "</td>";
-        html +=
-            '<td><input type="text" name="marks_and_nos_container_and_seals[]" class="form-control form-control-sm" required />';
-        html +=
-            '<td><input type="number" name="number_of_containers[]" class="form-control form-control-sm" required /></td>';
-        html +=
-            '<td> <input type="text" name="no_and_kind_of_packages[]" class="form-control form-control-sm" required /></td>';
-        html += '<td> <input type="text" name="description[]" class="form-control form-control-sm" required /></td>';
-        html += '<td><input type="text" name="gross_weight_cargo[]" class="form-control form-control-sm" required /></td>';
-        html += '<td><input type="text" name="measurement[]" class="form-control form-control-sm" required /></td>';
-        html += '<td> <input type="text" name="tare[]" class="form-control form-control-sm" required /></td>';
-        html += "<td><button type='button' class='btn btn-sm btn-danger' onclick='deleteRow(this);'>Delete</button></td>"
-        html += "</tr>";
+    var html = "<tr>";
+    html += "<td>" + items + "</td>";
+    html +=
+        '<td><input type="text" name="marks_and_nos_container_and_seals[]" class="form-control form-control-sm" required />';
+    // html +=
+    //     '<td><input type="number" name="number_of_containers[]" class="form-control form-control-sm" required /></td>';
+    html +=
+        '<td> <input type="text" name="no_and_kind_of_packages[]" class="form-control form-control-sm" required /></td>';
+    html += '<td> <input type="text" name="description[]" class="form-control form-control-sm" required /></td>';
+    html += '<td><input type="text" name="gross_weight_cargo[]" class="form-control form-control-sm" required /></td>';
+    html += '<td><input type="text" name="measurement[]" class="form-control form-control-sm" required /></td>';
+    html += '<td> <input type="text" name="tare[]" class="form-control form-control-sm" required /></td>';
+    html += "<td><button type='button' class='btn btn-sm btn-danger' onclick='deleteRow(this);'>Delete</button></td>"
+    html += "</tr>";
 
-        var row = document.getElementById("tbody").insertRow();
-        row.innerHTML = html;
-    }
+    var row = document.getElementById("tbody").insertRow();
+    row.innerHTML = html;
+}
 
-    function deleteRow(button) {
-        items--;
-        button.parentElement.parentElement.remove();
-        // first parentElement will be td and second will be tr.
-    }
+function deleteRow(button) {
+    items--;
+    button.parentElement.parentElement.remove();
+    // first parentElement will be td and second will be tr.
+}
 </script>
 
 <?php include_once '../inc/footer.php';

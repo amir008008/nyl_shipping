@@ -59,9 +59,9 @@
                             <a href="./dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
                         <?php if ($_SESSION['role'] == 2) { ?>
-                        <li class="">
+                        <!-- <li class="">
                             <a href="./signature"><i class="fa fa-sign"></i> <span>Signature</span></a>
-                        </li>
+                        </li> -->
 
                         <li class="menu-title">Other Elements</li>
 

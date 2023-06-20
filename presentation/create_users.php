@@ -9,6 +9,7 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: ../index');
 }
 
+$username = $_SESSION['username'];
 
 if (isset($_POST['create_user'])) {
     $name  = mysqli_real_escape_string($connection, $_POST['name']);
@@ -21,7 +22,7 @@ if (isset($_POST['create_user'])) {
     $hashed_password = sha1($password);
 
     $query = "INSERT INTO `users`(`name`, `email`, `username`, `role`, `password`, `status`, `created_by`, `created_time`) VALUES 
-                ('$name', '$email', '$username', '$role', '$hashed_password', '$status', 'Vidusha', NOW())";
+                ('$name', '$email', '$username', '$role', '$hashed_password', '$status', '$username', NOW())";
     $query_run = mysqli_query($connection, $query);
     if ($query_run) {
         header("Location: ./users");
@@ -49,7 +50,8 @@ if (isset($_POST['create_user'])) {
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-user"></i></span>
                                     </div>
-                                    <input type="text" class="form-control form-control-sm" placeholder="Add First and and Last Name" name="name" required>
+                                    <input type="text" class="form-control form-control-sm"
+                                        placeholder="Add First and and Last Name" name="name" required>
                                 </div>
 
                                 <!-- /.input group -->
@@ -64,7 +66,8 @@ if (isset($_POST['create_user'])) {
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                     </div>
-                                    <input type="text" class="form-control form-control-sm" inputmode="text" placeholder="Email Address" name="email" required>
+                                    <input type="text" class="form-control form-control-sm" inputmode="text"
+                                        placeholder="Email Address" name="email" required>
                                 </div>
 
                                 <!-- /.input group -->
@@ -79,7 +82,8 @@ if (isset($_POST['create_user'])) {
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-user-lock"></i></span>
                                     </div>
-                                    <input type="text" class="form-control form-control-sm" inputmode="text" placeholder="Username" name="username" required>
+                                    <input type="text" class="form-control form-control-sm" inputmode="text"
+                                        placeholder="Username" name="username" required>
                                 </div>
 
                                 <!-- /.input group -->
@@ -94,7 +98,8 @@ if (isset($_POST['create_user'])) {
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                     </div>
-                                    <select class="form-select form-control" name="role" aria-label="Default select example" required>
+                                    <select class="form-select form-control" name="role"
+                                        aria-label="Default select example" required>
                                         <option selected>--Select Role--</option>
                                         <option value="1">Printer</option>
                                         <option value="2">Admin</option>
@@ -113,7 +118,8 @@ if (isset($_POST['create_user'])) {
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                                     </div>
-                                    <input type="password" class="form-control form-control-sm" inputmode="text" placeholder="Password" id="password" name="password" required>
+                                    <input type="password" class="form-control form-control-sm" inputmode="text"
+                                        placeholder="Password" id="password" name="password" required>
                                 </div>
                                 <!-- /.input group -->
 
@@ -124,7 +130,8 @@ if (isset($_POST['create_user'])) {
                                 <div class="col-md-11">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="checkbox" onclick="showPassword()" class="mt-2"> Show Password
+                                            <input type="checkbox" name="checkbox" onclick="showPassword()"
+                                                class="mt-2"> Show Password
                                         </label>
                                     </div>
 
@@ -162,14 +169,14 @@ if (isset($_POST['create_user'])) {
 </div>
 
 <script>
-    const showPassword = () => {
-        let password = document.getElementById('password');
-        if (password.type === "password") {
-            password.type = 'text';
-        } else {
-            password.type = "password";
-        }
+const showPassword = () => {
+    let password = document.getElementById('password');
+    if (password.type === "password") {
+        password.type = 'text';
+    } else {
+        password.type = "password";
     }
+}
 </script>
 
 <?php include_once '../inc/footer.php';

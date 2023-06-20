@@ -143,11 +143,18 @@ $pdf->SetXY(158.5, 86); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0,
 Table 
 */
 
-$pdf->SetXY(0, 93.2); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(52.5, 6, "VESSEL", 0, 1, 'C', true); 
-$pdf->SetXY(52.5, 93.2); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(52.5, 6, "PORT OF LOADING", 0, 1, 'C', true); 
-$pdf->SetXY(105, 93.2); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(50.5, 6, "PORT OF DISCHARGE", 0, 1, 'C', true); 
-$pdf->SetXY(155.5, 93.2); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(57.5, 6, "FINAL PLACE OF DELIVERY*", 0, 1, 'C', true);
+$pdf->SetXY(0, 93);
+// $width_cell=array(10,10,10,10, 10, 10);
+$pdf->SetFillColor(193,229,252); // Background color of header 
+// Header starts /// 
+$pdf->SetXY(0, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(25,6,'MARKS AND NOS',1,1,'C');
+$pdf->SetXY(25, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'NO OF PACKAGES',1,1,'C');
+$pdf->SetXY(55, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(75,6,'DESCRIPTION',1,1,'C');
+$pdf->SetXY(130, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'CARGO WEIGHT',1,1,'C');
+$pdf->SetXY(160, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(20,6,'TARE',1,1,'C');
+$pdf->SetXY(180, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'MEASUREMENT',1,1,'C');
 
+//// header is over ///////
 
 /*
 
@@ -305,23 +312,193 @@ $pdf->SetXY(35, 268.4); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0,
 $pdf->Cell(35, 4, $place_of_receipt, 0, 1, 'L', true);
 
 $pdf->SetXY(70, 268.4); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 5);
-$pdf->Cell(35, 4, $date_of_date, 0, 1, 'L', true);
+$pdf->Cell(35, 4, strtotime($date_of_date), 0, 1, 'L', true);
 
-$pdf->Rect(0, 272.4, 105, 4.5, 'D'); 
-
-$pdf->SetXY(0, 272.4); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 5);
-$pdf->Cell(35, 4, "PLACE AND DATE OF ISSUE", 0, 1, 'L', true);
 
  
+// Company Logo
 
-$pdf->SetXY(106, 268.4); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
-$pdf->Cell(140, 6, "SIGNED FOR THE CARRIER CMA CGM S.A. ", 0, 1, 'L', true);
+// Shipper
+
+// Company Logo
+$image1 = "../assets/img/Image2.png";
+$pdf->SetY(310);
+// $pdf->SetX(0);
+$pdf->Cell(0, 0, $pdf->Image($image1, $pdf->GetX(), $pdf->GetY(), 35), 0, 0, 'C', false);
 
  
+// Right Side Container
+// Title
+$pdf->SetXY(121, 2); $pdf->SetFont('Arial', 'B', 15); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->Cell(100, 10, 'ORIGINAL', 0, 1, 'L', true);
+$pdf->SetXY(113, 10); $pdf->SetFont('Arial', 'B', 0); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->Cell(105, 10, 'BILL OF LADING!', 0, 1, 'L', true); 
+// Bill Details
+$pdf->SetXY(165,0); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 8); $pdf->Rect(165, 0, 105, 11, 'D'); $pdf->Cell(165, 5, "VOYAGE NUMBER", 0, 1, 'L', true);
+$pdf->SetXY(166, 6); $pdf->SetFillColor(0, 0, 0); $pdf->SetFillColor(255, 255, 255); $pdf->SetFont('Arial', '', 8); $pdf->Cell(170, 5, $voyage_number, 0, 1, 'L', true); 
+$pdf->SetXY(165, 11); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 8); $pdf->Rect(165, 11, 105, 11, 'D'); $pdf->Cell(165, 5, "BILL OF LADING", 0, 1, 'L', true);
+$pdf->SetXY(166, 16); $pdf->SetFillColor(0, 0, 0); $pdf->SetFillColor(255, 255, 255); $pdf->SetFont('Arial', '', 8); $pdf->Cell(170, 5, $bill_of_lading_number, 0, 1, 'L', true);
 
-$image1 = "../assets/img/sign.jpeg";
-$pdf->SetXY(155, 268.4); $pdf->Cell(0, 210, $pdf->Image($image1, $pdf->GetX(), $pdf->GetY(), 30));
 
- 
+/*
+
+Shipping Data Summery
+Top Side
+
+*/
+
+$pdf->SetXY(0, 21); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(52.5, 6, "PRE CARRIAGE BY *", 0, 1, 'C', true); $pdf->Rect(0, 21, 52.5, 15, 'D'); 
+$pdf->SetXY(52.5, 21); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(52.5, 6, "PLACE OF RECEIPT*", 0, 1, 'C', true); $pdf->Rect(52.5, 21, 52.5, 15, 'D'); 
+$pdf->SetXY(105, 21); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(50.5, 6, "FREIGHT TO BE PAID AT", 0, 1, 'C', true); $pdf->Rect(105, 21, 50.5, 15, 'D');
+$pdf->SetXY(155.5, 21); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(57.5, 6, "NUMBER OF ORIGINAL BILLS OF LADING", 0, 1, 'C', true); $pdf->Rect(155.5, 21, 55.5, 15, 'D');
+
+$pdf->SetXY(1, 27); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $pre_carriage_by, 0, 1, 'C', true);
+$pdf->SetXY(53.5, 27); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $place_of_receipt, 0, 1, 'C', true); 
+$pdf->SetXY(106, 27); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $freight_to_be_paid_at, 0, 1, 'C', true); 
+$pdf->SetXY(158.5, 27); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(50.5, 6, $number_of_original_bill_of_loding, 0, 1, 'C', true);
+/*
+
+Shipping Data Summery
+Bottom Side
+
+*/
+
+$pdf->SetXY(0, 32); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(52.5, 6, "VESSEL", 0, 1, 'C', true); $pdf->Rect(0, 32, 52.5, 15, 'D'); 
+$pdf->SetXY(52.5, 32); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(52.5, 6, "PORT OF LOADING", 0, 1, 'C', true); $pdf->Rect(52.5, 32, 52.5, 15, 'D'); 
+$pdf->SetXY(105, 32); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(50.5, 6, "PORT OF DISCHARGE", 0, 1, 'C', true); $pdf->Rect(105, 32, 50.5, 15, 'D');
+$pdf->SetXY(155.5, 32); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(57.5, 6, "FINAL PLACE OF DELIVERY*", 0, 1, 'C', true); $pdf->Rect(155.5, 32, 55.5, 15, 'D');
+
+$pdf->SetXY(1, 38.5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $vessel, 0, 1, 'C', true);
+$pdf->SetXY(53.5, 38.5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $port_of_loading, 0, 1, 'C', true); 
+$pdf->SetXY(106, 38.5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $port_of_discharge, 0, 1, 'C', true); 
+$pdf->SetXY(158.5, 38.5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(50.5, 6, $final_place_of_delivery, 0, 1, 'C', true);
+
+/*
+Table 
+*/
+
+$pdf->SetXY(0, 47.1);
+// $width_cell=array(10,10,10,10, 10, 10);
+$pdf->SetFillColor(193,229,252); // Background color of header 
+// Header starts /// 
+$pdf->SetXY(0, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(25,6,'MARKS AND NOS',1,1,'C');
+$pdf->SetXY(25, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'NO OF PACKAGES',1,1,'C');
+$pdf->SetXY(55, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(75,6,'DESCRIPTION',1,1,'C');
+$pdf->SetXY(130, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'CARGO WEIGHT',1,1,'C');
+$pdf->SetXY(160, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(20,6,'TARE',1,1,'C');
+$pdf->SetXY(180, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'MEASUREMENT',1,1,'C');
+
+//// header is over ///////
+/*
+
+ADDITIONAL CLAUSES
+
+*/
+
+$pdf->SetXY(0, 200); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(210, 6, "ADDITIONAL CLAUSES", 0, 1, 'C', true); $pdf->Rect(0, 200, 210, 6, 'D'); 
+
+// Texts
+
+/*
+
+LEFT SIDE DETAILS
+
+*/
+
+$pdf->SetXY(1, 206.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "17. The Shipper Acknowledges that the Carrier may Carry the Goods Identified in this Bill of Lading on the Deck of any Vessel and", 0, 1, 'L', true);
+
+$pdf->SetXY(1,210.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "in Taking Remittance of This Bill of Lading the Merchant (Including the Shipper, he Consignee and the Holder of the Bill of Lading,", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 214.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "as the Case may be) Confirms his Express Acceptance of all the Terms and Conditions of this Bill of Lading and Expressly Confirms", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 218.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "his Unconditional and Irrevocable Consent to the Possible Carriage of the Goods on the Deck of any Vessel.", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 222.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "18. The Merchant is Responsible for Returning any Empty Container, with Interior Clean, Free of any Dangerous Goods Placards, ", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 226.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Labels or Markings, at the Designated Place, and within 60 days Following to the Date of Release, Failing Which the Container ", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 230.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Shall be Construed as Lost. The Merchant Shall be Liable to Indemnify the Carrier for any Loss or Expense Whatsoever arising ", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 234.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "out of the ,Foregoing including but not Limited to Liquidate Damages Equivalent to the Sound Market Value  or the ", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 238.2);  $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Depreciated Value Due by the Carrier to a Container Lessor. The Carrier is Entitled to Collect a Deposit From The Merchant at ", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 242.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "the Time of Release of the   Container which Shall be Remitted as Security for Payment of any Sums due to the Carrier, n ", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 246.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Particular For Payment of all Detention and Demurrage and / or Container Indemnity as Referred Above.", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 250.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "19. The Merchant Warrants that the Particulars Relating to the Goods have Been Checked and that Such Particulars are Adequate ", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 254.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "and Correct. In Case of Failure of the Merchant to Comply with Such Warranty, the Carrier Shall be Entitled to Charge the ", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 255.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Merchant at any Time an Amount of USD 2,000 per Container or Goods (For non-Containerized Cargo) as Processing", 0, 1, 'L', true);
+
+$pdf->Rect(0, 206.3, 105, 57, 'D'); 
+
+/*
+
+RIGHT SIDE DETAILS
+
+*/
+
+$pdf->SetXY(106, 206.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "and Administrative Fees. This Fee Shall also be Applicable in Case of Discrepancy Between the Verified Gross Mass (VGM) Sent ", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 210.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "to the Carrier, or the Weight Declared to the Carrier (for non-containerized cargo), and the Weight Declaredin his ", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 214.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Shipping Instruction or Otherwise Weighted During the Carriage. by the Shipper  in his Shipping Instruction or Otherwise ", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 218.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Weighted During the Carriage.", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 222.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Carrier Draw Merchant's Attention to the Fact that as per Egyptian New Customs Law No. 207 For the Year 2020, , Published in the", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 226.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Egyptian Official Gazette on Nov. 11, 2020, Cargo shall be Auctioned by Customs Without any Notice if Merchant Fails to ", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 230.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Take Delivery Within 1(one) Month From The Date of Discharge.", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 234.2);  $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "21. Seal, Weight, Number and Description of Goods as Declared by Shipper. Containers Delivered to Sea Carrier Loaded, Counted, ", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 238.2); $pdf->SetX(106); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Stowed, Locked and Sealed by Shipper.Carrier having no adequate means for Checking same and Ship having to Sail Immediately, ", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 242.2);  $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Carrier is not Responsible for any Missing / Excess in Number of Packages, Shortage / Excess in Weight of Contents and", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 246.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Discrepancy of the Goods and Seal as Declared by Shipper. Preliminary Customs Registration Number for Shipment Bound to ", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 250.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Egypt as Declared by shipper. Any Consequences of misdeclaration / Discrepancy at Shipper's Risks and Expenses.", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 254.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0);  $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "22. Merchant Consents to the Carrier Sharing Information and Data contained in the Bill of Lading And / Or Related to the ", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 258.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Performance of the Carriage of the Goods with third Parties, Including but not Limited to Digital Supply Chain Platforms.", 0, 1, 'L', true);
+
+$pdf->Rect(105, 206.3, 105, 57, 'D'); 
+
+/*
+
+*/
 
 $pdf->Output();
