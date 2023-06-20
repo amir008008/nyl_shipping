@@ -155,7 +155,12 @@ $pdf->SetXY(160, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0,
 $pdf->SetXY(180, 93.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'MEASUREMENT',1,1,'C');
 
 //// header is over ///////
-
+$d_query = "SELECT * FROM container WHERE container.info_id = '$get_info_id'";
+$run_d = mysqli_query($connection, $query);
+foreach($run_d as $row){
+    $pdf->SetXY(1, 98.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $d_query, 0, 1, 'C', true);
+    
+}
 /*
 
 ADDITIONAL CLAUSES
@@ -387,6 +392,9 @@ $pdf->SetXY(160, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0,
 $pdf->SetXY(180, 47.1); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 7); $pdf->Cell(30,6,'MEASUREMENT',1,1,'C');
 
 //// header is over ///////
+
+
+
 /*
 
 ADDITIONAL CLAUSES
