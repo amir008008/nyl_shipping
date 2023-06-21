@@ -44,6 +44,7 @@ $pdf->addPage("P", "A4");
 $pdf->GetPageWidth();   
 $pdf->GetPageHeight();  
 
+
 /*
 -- Left Side Container
 // Shipper Details
@@ -212,13 +213,104 @@ $pdf->SetXY(53.5, 81); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 
 $pdf->SetXY(106, 81); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(48.5, 6, $port_of_discharge, 0, 1, 'C', true); 
 $pdf->SetXY(158.5, 81); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(50.5, 6, $final_place_of_delivery, 0, 1, 'C', true);
 
+
+function GetMultiCellHeight($w, $h, $txt, $border=null, $align='J') {
+    // Calculate MultiCell with automatic or explicit line breaks height
+    // $border is un-used, but I kept it in the parameters to keep the call
+    //   to this function consistent with MultiCell()
+    $cw = &$this->CurrentFont['cw'];
+    if($w==0)
+        $w = $this->w-$this->rMargin-$this->x;
+    $wmax = ($w-2*$this->cMargin)*1000/$this->FontSize;
+    $s = str_replace("\r",'',$txt);
+    $nb = strlen($s);
+    if($nb>0 && $s[$nb-1]=="\n")
+        $nb--;
+    $sep = -1;
+    $i = 0;
+    $j = 0;
+    $l = 0;
+    $ns = 0;
+    $height = 0;
+    while($i<$nb)
+    {
+        // Get next character
+        $c = $s[$i];
+        if($c=="\n")
+        {
+            // Explicit line break
+            if($this->ws>0)
+            {
+                $this->ws = 0;
+                $this->_out('0 Tw');
+            }
+            //Increase Height
+            $height += $h;
+            $i++;
+            $sep = -1;
+            $j = $i;
+            $l = 0;
+            $ns = 0;
+            continue;
+        }
+        if($c==' ')
+        {
+            $sep = $i;
+            $ls = $l;
+            $ns++;
+        }
+        $l += $cw[$c];
+        if($l>$wmax)
+        {
+            // Automatic line break
+            if($sep==-1)
+            {
+                if($i==$j)
+                    $i++;
+                if($this->ws>0)
+                {
+                    $this->ws = 0;
+                    $this->_out('0 Tw');
+                }
+                //Increase Height
+                $height += $h;
+            }
+            else
+            {
+                if($align=='J')
+                {
+                    $this->ws = ($ns>1) ? ($wmax-$ls)/1000*$this->FontSize/($ns-1) : 0;
+                    $this->_out(sprintf('%.3F Tw',$this->ws*$this->k));
+                }
+                //Increase Height
+                $height += $h;
+                $i = $sep+1;
+            }
+            $sep = -1;
+            $j = $i;
+            $l = 0;
+            $ns = 0;
+        }
+        else
+            $i++;
+    }
+    // Last chunk
+    if($this->ws>0)
+    {
+        $this->ws = 0;
+        $this->_out('0 Tw');
+    }
+    //Increase Height
+    $height += $h;
+
+    return $height;
+}
 /*
 Table 
 */
 
 $pdf->SetXY(10, 93); // Adjust the X position for the header
-
-// Header starts ///
+// Header
 $pdf->SetXY(0, 87.5);
 $pdf->SetFillColor(200, 200, 200);
 $pdf->SetTextColor(0, 0, 0);
@@ -263,74 +355,95 @@ $pdf->MultiCell(30, 6, 'MEASUREMENT', 1, 'C');
 $pdf->SetXY(180, 93.1);
 $pdf->SetFont('Arial', '', 7);
 $pdf->Cell(30, 4, 'CBM', 0, 1, 'C');
-
-//// header is over ///////
+// Data Rows
 $query = "SELECT * FROM container WHERE container.info_id = '$get_info_id' LIMIT 8";
 $run_d = mysqli_query($connection, $query);
 
-$y = 95; // Adjust the initial Y position for rows
+$y = 96; // Adjust the initial Y position for rows
+$lineCount = 0; // Counter for the number of lines printed
+$pageNumber = 1; // Initial page number
+$totalPages = 2; //  page number
+$rowCount = mysqli_num_rows($run_d);  // Get the total number of rows
+$counter = 0;  // Initialize counter variable
+$flag = 0;  // Initialize flag variable
 
 while ($x = mysqli_fetch_assoc($run_d)) {
     $remainingArea = $pdf->GetPageHeight() - $y;
-    
-    if ($remainingArea < 6) {
+    $description = $x['description'];
+    $lineCount += substr_count($description, "\n") + 1; // Count lines in description
+
+    if ($remainingArea < 6 * $lineCount) {
         $pdf->AddPage();
         $y = 90; // Reset the Y position for the new page
+        $lineCount = 0; // Reset line count for new page
+        $pageNumber++; // Increment page number
+        $flag = 1;
     }
-    
+
+
     $pdf->SetXY(0, $y); // Adjust the X and Y positions for each cell
     $pdf->SetFillColor(200, 200, 200);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFont('Arial', '', 6);
-    $pdf->MultiCell(25, 6 , $x['marks_and_nos_container_and_seals'], 0, 'C');
+    $pdf->MultiCell(25, 6 * 0.45, $x['marks_and_nos_container_and_seals'], 0, 'C');
 
     $pdf->SetXY(25, $y); // Adjust the X and Y positions for each cell
     $pdf->SetFillColor(200, 200, 200);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFont('Arial', '', 6);
-    $pdf->MultiCell(30, 6, $x['no_and_kind_of_packages'], 0, 'R');
+    $pdf->MultiCell(30, 6 * 0.45, $x['no_and_kind_of_packages'], 0, 'R');
 
     $pdf->SetXY(55, $y); // Adjust the X and Y positions for each cell
     $pdf->SetFillColor(200, 200, 200);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFont('Arial', '', 6);
-    $pdf->MultiCell(75, 6 , $x['description'], 0, 'L');
-    
+    $pdf->MultiCell(75, 6 * 0.45, $x['description'], 0, 'L');
 
     $pdf->SetXY(130, $y); // Adjust the X and Y positions for each cell
     $pdf->SetFillColor(200, 200, 200);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFont('Arial', '', 6);
-    $pdf->MultiCell(30, 6, $x['gross_weight_cargo'], 0, 'C');
+    $pdf->MultiCell(30, 6 * 0.45, $x['gross_weight_cargo'], 0, 'C');
 
     $pdf->SetXY(160, $y); // Adjust the X and Y positions for each cell
     $pdf->SetFillColor(200, 200, 200);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFont('Arial', '', 6);
-    $pdf->MultiCell(20, 6, $x['tare'], 0, 'C');
+    $pdf->MultiCell(20, 6 * 0.45, $x['tare'], 0, 'C');
 
     $pdf->SetXY(180, $y); // Adjusted X and Y positions to align the last cell
     $pdf->SetFillColor(200, 200, 200);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFont('Arial', '', 6);
-    $pdf->MultiCell(30, 6, $x['measurement'], 0, 'C');
+    $pdf->MultiCell(30, 6 * 0.45, $x['measurement'], 0, 'C');
 
-    $y += 6; // Increase the Y position for the next row
-}
+    $y += 6 * $lineCount; // Increase the Y position based on line count
+    $lineCount = 0; // Reset line count for the next row
 
-if ($y >= $pdf->GetPageHeight()) {
+    if ($y >= 165) { // Adjusted end of page position
+        //$pdf->AddPage();
+        $flag = 1;
+        $y = 65; // Reset the Y position for the new page
+        
+// Print final "Continued on Next Sheet" and page numbering if needed
+if ($pageNumber > 1) {
     $pdf->AddPage();
     $y = 90; // Reset the Y position for the new page
-}
+}  
+$pdf->SetXY(64, 158); // Adjusted X and Y positions for the message
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 6);
+$pdf->Cell(0, 5, 'Continued on Next Sheet                  Sheet '.$pageNumber.' of '.$totalPages, 0, 1, 'L');
+$pdf->Cell(0, 1, 'ABOVE PARTICULARS DECLARED BY SHIPPER, CARRIER NOT RESPONSIBLE.', 0, 1, 'C');
 
-
-/*
-
-ADDITIONAL CLAUSES
-
-*/
-
-$pdf->SetXY(0, 165); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 7); $pdf->Cell(210, 6, "ADDITIONAL CLAUSES", 0, 1, 'C', true); $pdf->Rect(0, 165, 210, 6, 'D'); 
+// Additional Clauses
+$pdf->SetXY(0, 165);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 7);
+$pdf->Cell(210, 6, "ADDITIONAL CLAUSES", 0, 1, 'C', true);
+$pdf->Rect(0, 165, 210, 6, 'D');
 
 // Texts
 
@@ -494,6 +607,198 @@ $pdf->SetXY(0,280);
 // $pdf->SetX(0);
 $pdf->Cell(0, 0, $pdf->Image($image1, $pdf->GetX(), $pdf->GetY(), 35), 0, 0, 'C', false);
 
+    }
+    
+    $counter++;  // Increment the counter
+
+    // Perform actions for each row
+// Perform actions for each row
+    if ($counter == $rowCount) {
+        // Perform actions for the last iteration
+        // This block will only execute on the last iteration of the loop
+        if ($flag == 1){
+            break; // Skip the code block when flag is 1
+        }
+        if ( $pageNumber == 1) {
+            // Additional Clauses
+$pdf->SetXY(0, 165);
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 7);
+$pdf->Cell(210, 6, "ADDITIONAL CLAUSES", 0, 1, 'C', true);
+$pdf->Rect(0, 165, 210, 6, 'D');
+
+// Texts
+
+/*
+
+LEFT SIDE DETAILS
+
+*/
+
+$pdf->SetXY(1, 171.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "1. We are Third Party Between Shipper (Suppliers) / Consignee / Container Shipping line Carrier  ", 0, 1, 'L', true);
+
+$pdf->SetXY(1,175.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "2. Cranes Costs For Receiver's account.", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 179.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "3. Cargo at Port Is at Merchant Risk, Expenses & Responsibility.", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 183.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "4. FCL", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 187.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "5. All Costs of Discharging / Loading Operations & all Expenses From Free Out Full Container to Return Empty On Board Vessel ", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 191.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Including Landing Charges, Ground Rent / Storage, Shore Cranes or Floating Cranes Effected By Ship's Orders are Totally at ", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 195.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Receiver's Risks & Expenses in Straight Time, Overtime, Fridays Saturday, Holidays & After Midnight Included.", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 199.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "6. Whenever Receivers do Not Take Delivery of Cargo after 120 days From Discharging Date the Shipper is Responsible Towards ", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 203.2);  $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Line For all Expenses / Charges / Fees / Freights and Demurrages That May be Incurred For Return Cargo to the Port OF Loading.", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 207.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "7. Devanning at Final Destination at Receiver's Risks and Expenses, to be effected within 10 Hours from ", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 211.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "8. Date of Arrival of Trailer. Thereafter Demurrage Will is US$ 140 per 20' and US$ 280 per 40' per Day to be Collected From  ", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 215.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Receivers Otherwise Payable Upon Presentation of Adequate Waybill By Shipper.", 0, 1, 'L', true);
+
+$pdf->SetXY(1, 219.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "8 Free Out", 0, 1, 'L', true);
+
+$pdf->Rect(0, 171.3, 105, 57, 'D'); 
+
+/*
+
+RIGHT SIDE DETAILS
+
+*/
+
+$pdf->SetXY(106, 171.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "9. THC at Destination Payable by Merchant as per NYL Line / Port Tariff", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 175.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "10. Reloading Empty Containers to Remain For Receiver's Account at any Port of Discharge in Egypt.", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 179.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "11. Off-loading of Containers Full from Truck and Reloading of Empty onto Truck at Any Port In Egypt to be at ", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 183.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Receiver's Risk and Expenses.", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 187.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "12. On Top of the Free Out Expenses, Loading / Discharging Containers Full to / From Truck are at Receiver's ", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 191.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Risks and Expenses.", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 195.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "13. Mis-Declaration of Cargo Weight Endangers Crew, Port Workers and Vessel's Safety.", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 199.2);  $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "14. Demurrage and Detention Shall be Calculated & Paid as per General Tariff Available n the Web Site www.nylshipping.com ,", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 203.2); $pdf->SetX(106); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Or in Any of NYL Agency. However if Special Free Time onditions are Granted, Then Rates Applicable Conditions are Granted, ", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 207.2);  $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "Then Rates Applicable as per General Tariff Grid Shall Start from the Day Following the Last Free Day.", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 211.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "15. The Authorized Agent of Our Line Shipping Is HEPTAGON TRADE COMPANY LIMITED in Middle East", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 215.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, " , Certificate No.: 72857661-000-04-23-1 , Website www.Heptagon-hk.com", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 219.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0);  $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "The Authorized Third Party Agent As Notify Party In Egypt To Collect Sea Freight Charge Is", 0, 1, 'L', true);
+
+$pdf->SetXY(106, 223.2); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 5);
+$pdf->Cell(105, 6, "TATOO FRIGHT-COMPANY OF AHMED ABDEL RAZIK NASR ABDEL MAKSOUD AND HIS PARTNER.", 0, 1, 'L', true);
+
+$pdf->Rect(105, 171.3, 105, 57, 'D'); 
+
+/*
+
+Term and Conditions
+
+*/
+
+$pdf->SetXY(0, 228.5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6);
+$pdf->Cell(210, 6, "RECEIVED by the Carrier From The Shipper in Apparent Good Order & Condition (Unless Otherwise Noted Herein) the Total Number or Quantity of Containers or Other Packages or Units Indicated Above Stated by the", 0, 1, 'L', true);
+
+$pdf->SetXY(0, 232.5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6);
+$pdf->Cell(210, 6, "Shipper Comprise The Cargo Specified Above For Transportation Subject to all the Terms Hereof (Including The Terms On Page One) From the Place of Receipt Or the Port of Loading. Whichever is Applicable, To ", 0, 1, 'L', true);
+
+$pdf->SetXY(0, 236.5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6);
+$pdf->Cell(210, 6, "the Port of Discharge  or the Place of Delivery, Whichever is applicable. Delivery of the Goods Will Only be Made on Payment of All Freight & Charges. On Presentation of this Document Duly endorsed) to the ", 0, 1, 'L', true);
+
+$pdf->SetXY(0, 240.5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6);
+$pdf->Cell(210, 6, "Carrier, by or on Behalf of the Holder,  the Rights and Liabilities Arising in Accordance With the Terms Hereof Shall (Without Prejudice to any Rule of Common Law or Statutes Rendering Them Binding Upon the ", 0, 1, 'L', true);
+
+$pdf->SetXY(0, 244.5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6);
+$pdf->Cell(210, 6, "Shipper, Holder and Carrier) Become Binding in all Respects Between the Carrier and Holder as Though the Contract Contained Herein or Evidenced Hereby Had been Made Between Them.", 0, 1, 'L', true);
+
+$pdf->SetXY(0, 248.5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6);
+$pdf->Cell(210, 6, "All Claims and Actions Arising Between the Carrier and the Merchant in Relation with the Contract of Carriage Evidenced by this Bill of Lading Shall Exclusively be Brought Before the Tribunal de Commerce de Hong Kong ", 0, 1, 'L', true);
+
+$pdf->SetXY(0, 252.5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6);
+$pdf->Cell(210, 6, "and no other Court Shall have Jurisdiction with Regards to any Such Claim or Action. Notwithstanding the above, the Carrier is also Entitled to Bring the Claim or Action Before the Court of the Place Where the ", 0, 1, 'L', true);
+
+$pdf->SetXY(0, 256.5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6);
+$pdf->Cell(210, 6, "Defendant has his Registered Office.", 0, 1, 'L', true);
+
+$pdf->SetXY(0, 256.5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', '', 6);
+$pdf->Cell(210, 6, "In Witness Whereof Three (3) Original Bills of Lading, Unless Otherwise Stated above, have been Issued, one of which Being Accomplished, the others to be Void.", 0, 1, 'L', true);
+
+$pdf->SetXY(0, 262.5); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 6);
+$pdf->Cell(210, 6, "(OTHER TERMS AND CONDITIONS OF THE CONTRACT ON PAGE ONE)", 0, 1, 'C', true);
+
+$pdf->Rect(0, 228.3, 210, 40, 'D'); 
+
+/* 
+Footer in First PDF
+*/
+
+$pdf->SetXY(0, 268.4); $pdf->SetFillColor(200, 200, 200); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 5);
+$pdf->Cell(35, 4, "PLACE AND DATE OF ISSUE", 0, 1, 'L', true);
+
+$pdf->SetXY(35, 268.4); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 5);
+$pdf->Cell(35, 4, $place_of_receipt, 0, 1, 'L', true);
+
+$pdf->SetXY(70, 268.4); $pdf->SetFillColor(255, 255, 255); $pdf->SetTextColor(0, 0, 0); $pdf->SetFont('Arial', 'B', 5);
+$pdf->Cell(35, 4, strtotime($date_of_date), 0, 1, 'L', true);
+
+
+ 
+// Company Logo
+
+// Shipper
+
+// Company Logo
+
+            $pdf->AddPage();
+            $y = 90; // Reset the Y position for the new page
+            $lineCount = 0; // Reset line count for new page
+            //$pageNumber++; // Increment page number
+        }
+    }
+
+
+
+        // Your code here
+    
+}
+
  
 // Right Side Container
 // Title
@@ -599,7 +904,7 @@ if($result = mysqli_query($connection, $d_query)){
 
     $rowCount = mysqli_num_rows($result);
 
-    if($rowCount > 8){
+    if($rowCount > 8000){
         $run_d = mysqli_query($connection, $query);
 
         while($x = mysqli_fetch_assoc($run_d)){
@@ -614,7 +919,14 @@ if($result = mysqli_query($connection, $d_query)){
     }
 }
 
+$pageNumber++; // Increment page number
 
+$pdf->SetXY(64, 190); // Adjusted X and Y positions for the message
+$pdf->SetFillColor(200, 200, 200);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('Arial', '', 6);
+$pdf->Cell(0, 5, 'Continued from Previous Sheet                  Sheet '.$pageNumber.' of '.$totalPages, 0, 1, 'L');
+$pdf->Cell(0, 1, 'ABOVE PARTICULARS DECLARED BY SHIPPER, CARRIER NOT RESPONSIBLE.', 0, 1, 'C');
 
 /*
 
